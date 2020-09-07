@@ -12,9 +12,29 @@
   loop_control:
     label: "{{ item.key }}"
 
+- name: Find all enabled sites
+  find:
+    path: "{{ nginx_sites_enabled_dir }}"
+    file_type: link
+  register: nginx_find_all_sites_enabled
+
+- name: Set all enabled sites
+  set_fact:
+    nginx_all_sites_enabled: >
+      {{ nginx_find_all_sites_enabled.files |
+         map(attribute='path') |
+         map('basename') |
+         list }}
+
 - name: Enable sites
   file:
     path: "{{ nginx_sites_enabled_dir }}/{{ item }}"
     src: "{{ nginx_sites_available_dir }}/{{ item }}"
     state: link
   loop: "{{ nginx_sites_enabled }}"
+
+- name: Disable all other sites
+  file:
+    path: "{{ nginx_sites_enabled_dir }}/{{ item }}"
+    state: absent
+  loop: "{{ nginx_all_sites_enabled | difference(nginx_sites_enabled) }}"
