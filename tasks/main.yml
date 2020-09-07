@@ -1,2 +1,5 @@
 ---
-# tasks file for nginx
+- name: Install package
+  package:
+    name: "{{ nginx_package }}"
+    state: present
