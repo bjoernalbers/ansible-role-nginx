@@ -1,2 +1,3 @@
 ---
 nginx_sites_available: {}
+nginx_sites_enabled: [ default ]

@@ -11,3 +11,10 @@
   loop: "{{ nginx_sites_available | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
+
+- name: Enable sites
+  file:
+    path: "{{ nginx_sites_enabled_dir }}/{{ item }}"
+    src: "{{ nginx_sites_available_dir }}/{{ item }}"
+    state: link
+  loop: "{{ nginx_sites_enabled }}"

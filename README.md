@@ -29,6 +29,18 @@ nginx_sites_available:
     }
 ```
 
+### `nginx_sites_enabled`
+
+List of enabled sites.
+
+Example:
+
+```yaml
+nginx_sites_enabled:
+  - default
+  - example.com
+```
+
 ## Dependencies
 
 None
