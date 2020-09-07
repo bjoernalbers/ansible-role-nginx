@@ -9,7 +9,25 @@ Other Debian versions and derivates might work as well.
 
 ## Role Variables
 
-TBD
+### `nginx_sites_available`
+
+Dictionary of available sites.
+The key determines the config file name and its value the file content.
+
+Example:
+
+```yaml
+nginx_sites_available:
+  example.com: |
+    server {
+      listen 80;
+      root /var/www/example.com;
+      server_name example.com www.example.com;
+      location / {
+        try_files $uri $uri/ =404;
+      }
+    }
+```
 
 ## Dependencies
 

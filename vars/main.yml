@@ -1,2 +1,3 @@
 ---
 nginx_package: nginx
+nginx_sites_available_dir: "/etc/nginx/sites-available"

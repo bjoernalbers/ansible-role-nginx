@@ -3,3 +3,11 @@
   package:
     name: "{{ nginx_package }}"
     state: present
+
+- name: Create available sites
+  copy:
+    content: "{{ item.value }}"
+    dest: "{{ nginx_sites_available_dir }}/{{ item.key }}"
+  loop: "{{ nginx_sites_available | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
