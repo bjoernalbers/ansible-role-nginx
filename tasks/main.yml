@@ -42,6 +42,10 @@
   loop: "{{ nginx_disabled_sites }}"
   notify: Reload nginx
 
+- name: Validate configuratation
+  command: nginx -t
+  changed_when: no
+
 - name: Start nginx
   service:
     name: "{{ nginx_service }}"
