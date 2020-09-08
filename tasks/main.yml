@@ -38,3 +38,9 @@
     path: "{{ nginx_sites_enabled_dir }}/{{ item }}"
     state: absent
   loop: "{{ nginx_all_sites_enabled | difference(nginx_sites_enabled) }}"
+
+- name: Start nginx
+  service:
+    name: "{{ nginx_service }}"
+    enabled: yes
+    state: started
