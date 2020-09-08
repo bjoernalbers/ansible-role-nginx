@@ -7,14 +7,14 @@
 - name: Create available sites
   copy:
     content: "{{ item.value }}"
-    dest: "{{ nginx_sites_available_dir }}/{{ item.key }}"
-  loop: "{{ nginx_sites_available | dict2items }}"
+    dest: "{{ nginx_available_sites_dir }}/{{ item.key }}"
+  loop: "{{ nginx_available_sites | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
 
 - name: Find all enabled sites
   find:
-    path: "{{ nginx_sites_enabled_dir }}"
+    path: "{{ nginx_enabled_sites_dir }}"
     file_type: link
   register: nginx_find_all_sites_enabled
 
@@ -28,16 +28,16 @@
 
 - name: Enable sites
   file:
-    path: "{{ nginx_sites_enabled_dir }}/{{ item }}"
-    src: "{{ nginx_sites_available_dir }}/{{ item }}"
+    path: "{{ nginx_enabled_sites_dir }}/{{ item }}"
+    src: "{{ nginx_available_sites_dir }}/{{ item }}"
     state: link
-  loop: "{{ nginx_sites_enabled }}"
+  loop: "{{ nginx_enabled_sites }}"
 
 - name: Disable all other sites
   file:
-    path: "{{ nginx_sites_enabled_dir }}/{{ item }}"
+    path: "{{ nginx_enabled_sites_dir }}/{{ item }}"
     state: absent
-  loop: "{{ nginx_all_sites_enabled | difference(nginx_sites_enabled) }}"
+  loop: "{{ nginx_all_sites_enabled | difference(nginx_enabled_sites) }}"
 
 - name: Start nginx
   service:

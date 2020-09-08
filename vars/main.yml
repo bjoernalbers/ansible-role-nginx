@@ -1,5 +1,5 @@
 ---
 nginx_package: nginx
-nginx_sites_available_dir: "/etc/nginx/sites-available"
-nginx_sites_enabled_dir: "/etc/nginx/sites-enabled"
+nginx_available_sites_dir: "/etc/nginx/sites-available"
+nginx_enabled_sites_dir: "/etc/nginx/sites-enabled"
 nginx_service: nginx
