@@ -9,7 +9,7 @@ Other Debian versions and derivates might work as well.
 
 ## Role Variables
 
-### `nginx_sites_available`
+### `nginx_available_sites`
 
 Dictionary of available sites.
 The key determines the config file name and its value the file content.
@@ -17,7 +17,7 @@ The key determines the config file name and its value the file content.
 Example:
 
 ```yaml
-nginx_sites_available:
+nginx_available_sites:
   example.com: |
     server {
       listen 80;
@@ -29,14 +29,14 @@ nginx_sites_available:
     }
 ```
 
-### `nginx_sites_enabled`
+### `nginx_enabled_sites`
 
 List of enabled sites.
 
 Example:
 
 ```yaml
-nginx_sites_enabled:
+nginx_enabled_sites:
   - default
   - example.com
 ```
