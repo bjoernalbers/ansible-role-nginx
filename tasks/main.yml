@@ -23,12 +23,12 @@
   find:
     path: "{{ nginx_enabled_sites_dir }}"
     file_type: link
-  register: nginx_find_all_sites_enabled
+  register: nginx_find_all_enabled_sites
 
 - name: Set disabled sites
   set_fact:
     nginx_disabled_sites: >
-      {{ nginx_find_all_sites_enabled.files |
+      {{ nginx_find_all_enabled_sites.files |
          map(attribute='path') |
          map('basename') |
          difference(nginx_enabled_sites) }}
