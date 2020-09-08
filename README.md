@@ -9,6 +9,23 @@ Other Debian versions and derivates might work as well.
 
 ## Role Variables
 
+### `nginx_config`
+
+Dictionary of extra configuration files.
+The key is the file name (without `.conf` suffix) and the value its
+content.
+
+Example:
+
+```yaml
+nginx_config:
+  ssl-tweaks: |
+    add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
+    add_header X-Frame-Options DENY;
+    add_header X-Content-Type-Options nosniff;
+    ssl_ciphers 'kEECDH+CHACHA kEECDH+AESGCM HIGH+kEECDH AESGCM 3DES !SRP !PSK !DSS !MD5 !LOW !MEDIUM !aNULL !eNULL !DH !kECDH';
+```
+
 ### `nginx_available_sites`
 
 Dictionary of available sites.
