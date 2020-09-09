@@ -4,11 +4,11 @@
     name: "{{ nginx_package }}"
     state: present
 
-- name: Create configuration
+- name: Create config files
   copy:
     content: "{{ item.value }}"
     dest: "{{ nginx_config_dir }}/{{ item.key }}"
-  loop: "{{ nginx_config | dict2items }}"
+  loop: "{{ nginx_config_files | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
   notify: Reload nginx
@@ -24,7 +24,7 @@
       {{ nginx_find_all_config_files.files |
         map(attribute='path') |
         map('basename') |
-        difference(nginx_config.keys()) |
+        difference(nginx_config_files.keys()) |
         list }}
 
 - name: Delete config files

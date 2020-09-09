@@ -1,4 +1,4 @@
 ---
-nginx_config: {}
+nginx_config_files: {}
 nginx_available_sites: {}
 nginx_enabled_sites: [ default ]
