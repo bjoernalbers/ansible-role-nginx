@@ -46,7 +46,7 @@
 - name: Enable sites
   file:
     path: "{{ nginx_enabled_sites_dir }}/{{ item }}"
-    src: "{{ nginx_available_sites_dir }}/{{ item }}"
+    src: "{{ nginx_available_sites_dir }}/{{ item }}"
     state: link
   loop: "{{ nginx_enabled_sites }}"
   notify: Reload nginx
