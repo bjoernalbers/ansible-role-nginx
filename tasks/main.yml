@@ -7,7 +7,7 @@
 - name: Create configuration
   copy:
     content: "{{ item.value }}"
-    dest: "{{ nginx_config_dir }}/{{ item.key }}.conf"
+    dest: "{{ nginx_config_dir }}/{{ item.key }}"
   loop: "{{ nginx_config | dict2items }}"
   loop_control:
     label: "{{ item.key }}"

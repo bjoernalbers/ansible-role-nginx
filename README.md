@@ -12,18 +12,15 @@ Other Debian versions and derivates might work as well.
 ### `nginx_config`
 
 Dictionary of extra configuration files.
-The key is the file name (without `.conf` suffix) and the value its
-content.
+The key is the file name and the value its content.
 
 Example:
 
 ```yaml
 nginx_config:
-  ssl-tweaks: |
-    add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
-    add_header X-Frame-Options DENY;
-    add_header X-Content-Type-Options nosniff;
-    ssl_ciphers 'kEECDH+CHACHA kEECDH+AESGCM HIGH+kEECDH AESGCM 3DES !SRP !PSK !DSS !MD5 !LOW !MEDIUM !aNULL !eNULL !DH !kECDH';
+  ssl.conf: |
+    ssl_protocols TLSv1.2 TLSv1.3;
+    #...
 ```
 
 ### `nginx_available_sites`
