@@ -9,9 +9,9 @@ Other Debian versions and derivates might work as well.
 
 ## Role Variables
 
-### `nginx_config`
+### `nginx_config_files`
 
-Dictionary of extra configuration files.
+Dictionary of extra configuration files which will be placed inside `conf.d`.
 The key is the file name and the value its content.
 
 Example:
@@ -46,6 +46,7 @@ nginx_available_sites:
 ### `nginx_enabled_sites`
 
 List of enabled sites.
+The values must match the keys from `nginx_available_sites`.
 
 Example:
 
@@ -65,7 +66,25 @@ Example Playbook
 ```yaml
 - hosts: all
   roles:
-     - role: bjoernalbers.nginx
+    - role: bjoernalbers.nginx
+      nginx_config_files:
+        ssl.conf: |
+          ssl_certificate      /etc/letsencrypt/live/example.com/fullchain.pem;
+          ssl_certificate_key  /etc/letsencrypt/live/example.com/privkey.pem;
+          ssl_protocols        TLSv1.2 TLSv1.3;
+          ssl_session_cache    shared:SSL:10m;
+          ssl_session_timeout  1d;
+          ssl_ciphers ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA;
+      nginx_available_sites:
+        example.com: |
+          server {
+            listen 443 ssl;
+            root /var/www/example.com;
+            server_name example.com www.example.com;
+            location / {
+              try_files $uri $uri/ =404;
+            }
+          }
 ```
 
 ## License
