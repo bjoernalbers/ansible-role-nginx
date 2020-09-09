@@ -13,6 +13,27 @@
     label: "{{ item.key }}"
   notify: Reload nginx
 
+- name: Find all config files
+  find:
+    path: "{{ nginx_config_dir }}"
+  register: nginx_find_all_config_files
+
+- name: Set all deleted config files
+  set_fact:
+    nginx_deleted_config_files: >
+      {{ nginx_find_all_config_files.files |
+        map(attribute='path') |
+        map('basename') |
+        difference(nginx_config.keys()) |
+        list }}
+
+- name: Delete config files
+  file:
+    path: "{{ nginx_config_dir }}/{{ item }}"
+    state: absent
+  loop: "{{ nginx_deleted_config_files }}"
+  notify: Reload nginx
+
 - name: Create available sites
   copy:
     content: "{{ item.value }}"
