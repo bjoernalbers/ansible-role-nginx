@@ -85,6 +85,8 @@ Example Playbook
               try_files $uri $uri/ =404;
             }
           }
+      nginx_enabled_sites:
+        - example.com
 ```
 
 ## License
