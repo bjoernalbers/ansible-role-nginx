@@ -63,7 +63,8 @@
       {{ nginx_find_all_enabled_sites.files |
          map(attribute='path') |
          map('basename') |
-         difference(nginx_enabled_sites) }}
+         difference(nginx_enabled_sites) |
+         list }}
 
 - name: Disable sites
   file:
